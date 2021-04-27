@@ -1,12 +1,12 @@
-import { requireNativeComponent, ViewStyle } from 'react-native';
+import { Platform, requireNativeComponent, View } from 'react-native';
 
 type WindowViewProps = {
-  color: string;
-  style: ViewStyle;
+  shown: boolean;
 };
 
-export const WindowViewViewManager = requireNativeComponent<WindowViewProps>(
-'WindowViewView'
-);
+export const RNWindowView =
+  Platform.OS === 'ios'
+    ? requireNativeComponent<WindowViewProps>('RNWindowView')
+    : View;
 
-export default WindowViewViewManager;
+export default RNWindowView;

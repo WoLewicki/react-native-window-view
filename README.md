@@ -1,6 +1,6 @@
 # react-native-window-view
 
-Native component for rendering views straight under the Window
+Native component for rendering views straight under the Window. Based on `RCTPerfMonitor`.
 
 ## Installation
 
@@ -10,12 +10,41 @@ npm install react-native-window-view
 
 ## Usage
 
-```js
-import WindowView from "react-native-window-view";
+```tsx
+import * as React from 'react';
 
-// ...
+import { Button, StyleSheet, View } from 'react-native';
+import RNWindowView from 'react-native-window-view';
 
-const result = await WindowView.multiply(3, 7);
+export default function App() {
+  const [shown, setShown] = React.useState(true);
+
+  return (
+    <View style={styles.container}>
+      <Button title="Show/hide window view" onPress={() => setShown(!shown)} />
+      <RNWindowView shown={shown}>
+        <View style={styles.box} />
+      </RNWindowView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  box: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: 'black',
+    backgroundColor: 'red',
+  },
+});
+
 ```
 
 ## Contributing
