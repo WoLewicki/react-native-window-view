@@ -1,6 +1,6 @@
 {
   "name": "react-native-window-view",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Native component for rendering views straight under the Window",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
