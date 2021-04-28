@@ -9,8 +9,10 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "@react-navigation/native": "^5.9.4",
     "react": "16.13.1",
-    "react-native": "0.63.4"
+    "react-native": "0.63.4",
+    "react-native-screens": "^3.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

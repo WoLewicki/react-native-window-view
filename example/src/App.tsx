@@ -2,8 +2,17 @@ import * as React from 'react';
 
 import { Button, StyleSheet, View, Modal } from 'react-native';
 import RNWindowView from 'react-native-window-view';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from 'react-native-screens/native-stack';
+import { NavigationContainer, ParamListBase } from '@react-navigation/native';
 
-export default function App() {
+function Home({
+  navigation,
+}: {
+  navigation: NativeStackNavigationProp<ParamListBase>;
+}) {
   const [shown, setShown] = React.useState(true);
   const [draggable, setDraggable] = React.useState(true);
   const [isShowModal, setIsShowModal] = React.useState(false);
@@ -16,6 +25,10 @@ export default function App() {
         onPress={() => setDraggable(!draggable)}
       />
       <Button title="show rn modal" onPress={() => setIsShowModal(true)} />
+      <Button
+        title="Go to RNScreens modal"
+        onPress={() => navigation.navigate('Modal')}
+      />
       <Modal
         animationType="slide"
         visible={isShowModal}
@@ -37,6 +50,35 @@ export default function App() {
         <Button title="click me" onPress={() => console.warn('clicked')} />
       </RNWindowView>
     </View>
+  );
+}
+
+function ModalScreen({
+  navigation,
+}: {
+  navigation: NativeStackNavigationProp<ParamListBase>;
+}) {
+  return (
+    <View style={styles.container}>
+      <Button title="dismiss modal" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
+
+const NativeStack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <NativeStack.Navigator>
+        <NativeStack.Screen name="Home" component={Home} />
+        <NativeStack.Screen
+          name="Modal"
+          component={ModalScreen}
+          options={{ stackPresentation: 'modal' }}
+        />
+      </NativeStack.Navigator>
+    </NavigationContainer>
   );
 }
 
