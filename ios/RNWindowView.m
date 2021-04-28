@@ -1,16 +1,21 @@
 #import <UIKit/UIKit.h>
 #import <React/RCTInvalidating.h>
+#import <React/RCTTouchHandler.h>
 
 #import "RNWindowView.h"
 
 @interface RNWindowView () <RCTInvalidating>
 @end
 
+@implementation RNViewContainer
+@end
+
 @implementation RNWindowView {
   __weak RCTBridge *_bridge;
   UIPanGestureRecognizer *_gestureRecognizer;
-  UIView *_container;
+  RNViewContainer *_container;
   CGRect _reactFrame;
+  RCTTouchHandler *_touchHandler;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge
@@ -36,6 +41,18 @@
   }
 }
 
+- (void)setDraggable:(BOOL)draggable
+{
+  if (_draggable != draggable) {
+    _draggable = draggable;
+    if (_draggable) {
+      [_container addGestureRecognizer:self.gestureRecognizer];
+    } else {
+      [_container removeGestureRecognizer:self.gestureRecognizer];
+    }
+  }
+}
+
 - (void)reactSetFrame:(CGRect)frame
 {
   _reactFrame = frame;
@@ -56,11 +73,10 @@
   return _gestureRecognizer;
 }
 
-- (UIView *)container
+- (RNViewContainer *)container
 {
   if (_container == nil) {
-    _container = [[UIView alloc] initWithFrame:_reactFrame];
-    [_container addGestureRecognizer:self.gestureRecognizer];
+    _container = [[RNViewContainer alloc] initWithFrame:_reactFrame];
   }
 
   return _container;
@@ -92,6 +108,12 @@
 {
   if (self.window == nil) {
     [self hide];
+    [_touchHandler detachFromView:_container];
+  } else {
+    if (_touchHandler == nil) {
+      _touchHandler = [[RCTTouchHandler alloc] initWithBridge:_bridge];
+    }
+    [_touchHandler attachToView:_container];
   }
 }
 
@@ -113,5 +135,6 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(shown, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(draggable, BOOL)
 
 @end
