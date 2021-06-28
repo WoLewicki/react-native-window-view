@@ -8,6 +8,15 @@
 @end
 
 @implementation RNViewContainer
+
+- (UIView *) hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+  UIView *hitTestResult = [super hitTest:point withEvent:event];
+  if ([hitTestResult isKindOfClass:[RNViewContainer class]]) {
+    return nil;
+  }
+  return hitTestResult;
+}
+
 @end
 
 @implementation RNWindowView {
