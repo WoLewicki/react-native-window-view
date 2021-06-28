@@ -47,6 +47,40 @@ const styles = StyleSheet.create({
 
 ```
 
+To make the compoent stay on top even after pushing modals, you need to add the following code to your `appDelegate.m` 
+
+```objc
+#import <react-native-window-view/RNWindowView.h>
+
+
+
+- (void)didAddSubview:(UIView *)subview
+{
+  if (![subview isKindOfClass:[RNViewContainer class]]) {
+    for (UIView *view in self.subviews) {
+      if ([view isKindOfClass:[RNViewContainer class]]) {
+        [self bringSubviewToFront:view];
+      }
+    }
+  }
+}
+
+@end
+
+@implementation AppDelegate
+
+
+// inside didFinishLaunchingWithOptions replace this line 
+
+self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+// with this 
+
+self.window = [[RNWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+```
+
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
