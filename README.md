@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-To make the compoent stay on top even after pushing modals, you need to add the following code to your `appDelegate.m`
+you also need to add the following code to your `appDelegate.m`.
 
 ```objc
 #import <react-native-window-view/RNWindowView.h>
