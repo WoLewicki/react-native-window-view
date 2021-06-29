@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
 });
-
 ```
 
 To make the compoent stay on top even after pushing modals, you need to add the following code to your `appDelegate.m`
@@ -52,9 +51,8 @@ To make the compoent stay on top even after pushing modals, you need to add the 
 ```objc
 #import <react-native-window-view/RNWindowView.h>
 
+@implementation RNWindow
 
-
-// to ignore touches on RNWindow
 - (UIView *) hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     UIView *hitTestResult = [super hitTest:point withEvent:event];
@@ -89,7 +87,6 @@ self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 self.window = [[RNWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
 ```
-
 
 ## Contributing
 
