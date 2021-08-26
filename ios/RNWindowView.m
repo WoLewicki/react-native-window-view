@@ -24,6 +24,8 @@
     _bridge = bridge;
     _reactFrame = CGRectNull;
     _container = self.container;
+    [self setShown:YES];
+    [self setInterceptTouches:NO];
   }
 
   return self;
@@ -51,6 +53,12 @@
       [_container removeGestureRecognizer:self.gestureRecognizer];
     }
   }
+}
+
+- (void)setInterceptTouches:(BOOL)interceptTouches
+{
+  _interceptTouches = interceptTouches;
+  _container.userInteractionEnabled = interceptTouches;
 }
 
 - (void)reactSetFrame:(CGRect)frame
@@ -136,5 +144,6 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(shown, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(draggable, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(interceptTouches, BOOL)
 
 @end

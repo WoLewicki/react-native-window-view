@@ -15,5 +15,6 @@
 
 @property (nonatomic) BOOL shown;
 @property (nonatomic) BOOL draggable;
+@property (nonatomic) BOOL interceptTouches;
 
 @end

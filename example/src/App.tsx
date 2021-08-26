@@ -15,6 +15,7 @@ function Home({
 }) {
   const [shown, setShown] = React.useState(true);
   const [draggable, setDraggable] = React.useState(true);
+  const [interceptTouches, setInterceptTouches] = React.useState(true);
   const [isShowModal, setIsShowModal] = React.useState(false);
 
   return (
@@ -23,6 +24,10 @@ function Home({
       <Button
         title="Enable/disable dragging behavior"
         onPress={() => setDraggable(!draggable)}
+      />
+      <Button
+        title="Enable/disable intercepting touches"
+        onPress={() => setInterceptTouches(!interceptTouches)}
       />
       <Button title="show rn modal" onPress={() => setIsShowModal(true)} />
       <Button
@@ -45,7 +50,11 @@ function Home({
           />
         </View>
       </Modal>
-      <RNWindowView shown={shown} draggable={draggable}>
+      <RNWindowView
+        shown={shown}
+        draggable={draggable}
+        interceptTouches={interceptTouches}
+      >
         <View style={styles.box} />
         <Button title="click me" onPress={() => console.warn('clicked')} />
       </RNWindowView>
