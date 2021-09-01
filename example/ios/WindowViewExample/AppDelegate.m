@@ -31,25 +31,6 @@ static void InitializeFlipper(UIApplication *application) {
 }
 #endif
 
-@interface RNWindow : UIWindow
-
-@end
-
-@implementation RNWindow
-
-- (void)didAddSubview:(UIView *)subview
-{
-  if (![subview isKindOfClass:[RNViewContainer class]]) {
-    for (UIView *view in self.subviews) {
-      if ([view isKindOfClass:[RNViewContainer class]]) {
-        [self bringSubviewToFront:view];
-      }
-    }
-  }
-}
-
-@end
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -64,7 +45,7 @@ static void InitializeFlipper(UIApplication *application) {
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
-  self.window = [[RNWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
