@@ -1,8 +1,9 @@
 import { Platform, requireNativeComponent, View } from 'react-native';
 
 type WindowViewProps = {
-  shown: boolean;
-  draggable: boolean;
+  shown?: boolean;
+  draggable?: boolean;
+  interceptTouches?: boolean;
 };
 
 export const RNWindowView =
